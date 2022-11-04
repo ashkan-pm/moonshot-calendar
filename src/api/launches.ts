@@ -1,5 +1,11 @@
+export type Launch = {
+  id: string;
+  name: string;
+  window_start: string;
+  pad: { latitude: string; longitude: string; name: string };
+};
 export type Launches = {
-  results: Array<{ id: string; pad: { latitude: string; longitude: string } }>;
+  results: Array<Launch>;
 };
 
 export async function fetchLaunchesByDate(
