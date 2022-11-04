@@ -1,24 +1,19 @@
-import { useState } from "react";
 import { Map as PigeonMap, Marker } from "pigeon-maps";
 import { useQuery } from "@tanstack/react-query";
 import { fetchLaunchesByDate } from "api/launches";
 import Filters from "components/Filters/Filters";
+import { useFilterState } from "contexts/FilterStateContext";
 import styles from "./Map.module.scss";
 
 function Map() {
-  const today = new Date();
-  const threeMonthsFromToday = new Date();
-  threeMonthsFromToday.setMonth(threeMonthsFromToday.getMonth() + 3);
-
-  const [dates, setDates] = useState<{ startDate: Date; endDate: Date }>({
-    startDate: today,
-    endDate: threeMonthsFromToday,
-  });
+  const [filters] = useFilterState();
 
   const { data } = useQuery({
-    queryKey: ["launchesByDate"],
-    queryFn: () => fetchLaunchesByDate(dates.startDate, dates.endDate, 100),
+    queryKey: ["launchesByDate", filters.startDate, filters.endDate],
+    queryFn: () => fetchLaunchesByDate(filters.startDate, filters.endDate, 100),
   });
+
+  console.log(data);
 
   return (
     <div className={styles.Map}>
