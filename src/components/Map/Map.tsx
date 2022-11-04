@@ -9,10 +9,18 @@ import styles from "./Map.module.scss";
 
 function Map() {
   const [filters] = useFilterState();
-
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["launchesByDate", filters.startDate, filters.endDate],
-    queryFn: () => fetchLaunchesByDate(filters.startDate, filters.endDate, 100),
+    queryKey: [
+      "launchesByDate",
+      filters.startDate,
+      filters.endDate,
+      filters.onlySuccessful,
+    ],
+    queryFn: () =>
+      fetchLaunchesByDate(filters.startDate, filters.endDate, {
+        limit: 100,
+        onlySuccessful: filters.onlySuccessful,
+      }),
   });
 
   return (

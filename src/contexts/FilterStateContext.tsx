@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 
-type FilterState = { startDate: Date; endDate: Date };
+type FilterState = { startDate: Date; endDate: Date; onlySuccessful: boolean };
 const FilterStateContext = createContext<
   [FilterState, Dispatch<SetStateAction<FilterState>>] | null
 >(null);
@@ -21,6 +21,7 @@ export function FilterStateProvider({ children }: Props) {
   const filterState = useState<FilterState>({
     startDate: today,
     endDate: threeMonthsFromToday,
+    onlySuccessful: false,
   });
 
   return (

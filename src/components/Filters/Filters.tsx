@@ -11,6 +11,9 @@ function Filters() {
   const handleEndDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilters({ ...filters, endDate: new Date(e.target.value) });
   };
+  const handleOnlySuccessfulChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilters({ ...filters, onlySuccessful: e.target.checked });
+  };
 
   return (
     <section className={styles.Filters}>
@@ -32,6 +35,15 @@ function Filters() {
             id="end-date"
             value={filters.endDate.toISOString().split("T")[0]}
             onChange={handleEndDateChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="only-successful">Only Successful</label>
+          <input
+            type="checkbox"
+            id="only-successful"
+            checked={filters.onlySuccessful}
+            onChange={handleOnlySuccessfulChange}
           />
         </div>
       </form>
